@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <% if (!user) {%>
+    You need to be logged in to submit a new message!
+    <a href="/"> go back</a>
+  <%} else {%>
+    <h1>Write a new message <%=user.username%></h1>
+    <form action="" method="POST">
+      <label for="title">Enter title</label>
+      <input name="title" placeholder="title" type="text" />
+      <label for="message">Enter message</label>
+      <input name="text" placeholder="write something here, like: 'FUCK YOU SKYLER'" type="text" />
+      <input name="username" value=<%=user.username%> type="hidden"/>
+      <button type="submit">Submit message</button>
+    </form>
+  <%} %>
+</body>
+</html>

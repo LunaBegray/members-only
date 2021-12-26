@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <% if(!user){ %>
+    <h1>please log in</h1>
+    <form action="/log-in" method="POST">
+      <label for="username">Username</label>
+      <input name="username" placeholder="username" type="text" />
+      <label for="password">Password</label>
+      <input name="password" type="password" />
+      <button>Log In</button>
+    </form>
+    <a href="/sign-up">Or else, Sign up!</a>
+
+  <%} else if (user.clubmember) {%>
+    <h1>WELCOME BACK CLUB MEMBER  <%= user.username %></h1>
+    <a href="/log-out">LOG OUT</a>
+    <div>
+      <a href="/createMessage"> Create a new message!</a>
+    </div>
+    <h2>message feed:</h2>
+    <% for(let i=0; i < messages.length; i++){ %>
+      <div> 
+        <%= messages[i].title + "  " + messages[i].text + "  " + messages[i].userName + "  " + messages[i].date %>
+      </div>
+    <%} %>
+
+  <%} else if(user.admin) {%>
+    <h1>WELCOME BACK ADMIN <%= user.username %></h1>
+    <a href="/log-out">LOG OUT</a>
+    <div>
+      <a href="/createMessage"> Create a new message!</a>
+    </div>
+    <h2>message feed:</h2>
+    <% for(let i=0; i < messages.length; i++){ %>
+      <div> 
+        <%= messages[i].title + "  " + messages[i].text + "  " + messages[i].userName + "  " + messages[i].date %>
+      </div>
+      <form action="", method="POST">
+        <input name="messageText" value="<%=messages[i].text%>"" type="hidden"/>
+        <input name="messageTitle" value="<%=messages[i].title%>" type="hidden"/>
+        <input name="messageUsername" value="<%=messages[i].userName%>" type="hidden"/>
+        <button type="submit">Delete message</button>
+      </form>
+    <%} %>
+
+  <%} else if(user) {%>
+    <h1>WELCOME BACK USER <%= user.username %></h1>
+    <a href="/log-out">LOG OUT</a>
+    <div>
+      <a href="/createMessage"> Create a new message!</a>
+    </div>
+    <h2>message feed:</h2>
+    <% for(let i=0; i < messages.length; i++){ %>
+      <div> 
+        <%= messages[i].title + "  " + messages[i].text %>
+      </div>
+
+    <%} %>
+
+  <%} else { %>
+    <h1> ERROR! go fuck yourself</h1>
+  <%}%>
+</body>
+</html>
